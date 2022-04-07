@@ -123,7 +123,6 @@ end
 #     3-dimensional array: [[['some data']]]
 def flatten(data)
 return [data] if data.instance_of?(String)
-# return "" if data.empty?
 new_arr = []
     data.each do |el|
         new_arr += if el.is_a?(Array)
