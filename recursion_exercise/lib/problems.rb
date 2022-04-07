@@ -6,12 +6,18 @@
 #
 # Examples:
 #
+
+
+
 # pow(2, 0) # => 1
 # pow(2, 1) # => 2
 # pow(2, 5) # => 32
 # pow(3, 4) # => 81
 # pow(4, 3) # => 64
 def pow(base, exponent)
+return 1 if exponent == 0
+
+pow(base,exponent-1) * base
 
 end
 
@@ -35,6 +41,10 @@ end
 # lucas_number(5)   # =>    11
 # lucas_number(9)   # =>    76
 def lucas_number(n)
+return 2 if n == 0
+return 1 if n == 1
+
+lucas_number(n-1) + lucas_number(n-2)
 
 end
 
@@ -50,7 +60,14 @@ end
 # sum_array([5])            # => 5
 # sum_array([5, 2])         # => 7
 # sum_array([4, 10, -1, 2]) # => 15
+
 def sum_array(array)
+return 0 if array.empty?
+
+    first = array.shift
+    # first = array[0]
+    # array.shift
+    first + sum_array(array)
 
 end
 
@@ -66,8 +83,13 @@ end
 # reverse_string("c")           # => "c"
 # reverse_string("internet")    # => "tenretni"
 # reverse_string("friends")     # => "sdneirf"
-def reverse_string(str)
 
+def reverse_string(str)
+    return "" if str.length == 0
+    
+    last = str.slice!(-1)
+    last += reverse_string(str)
+    
 end
 
 
@@ -100,5 +122,14 @@ end
 #     2-dimensional array: [['some data']]
 #     3-dimensional array: [[['some data']]]
 def flatten(data)
-
+return [data] if data.instance_of?(String)
+# return "" if data.empty?
+new_arr = []
+    data.each do |el|
+        new_arr += if el.is_a?(Array)
+            flatten(el)
+        else [el]
+        end
+    end
+new_arr
 end
